@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "Suresoft Attendance Sync",
+  "version": "1.0.3",
+  "description": "슈어소프트 근태 데이터를 유연근무 계산기에 자동으로 연동합니다.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://gw.suresofttech.com/*"
+  ],
+  "icons": {
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
+  "action": {
+    "default_title": "유연근무 계산기 열기",
+    "default_icon": {
+      "16": "icon-16.png",
+      "48": "icon-48.png",
+      "128": "icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://gw.suresofttech.com/app/ehr*",
+        "https://gw.suresofttech.com/app/ehr/*"
+      ],
+      "js": ["content-ehr.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "https://gw.suresofttech.com/app/ehr*",
+        "https://gw.suresofttech.com/app/ehr/*"
+      ],
+      "js": ["content-bridge.js"],
+      "run_at": "document_start",
+      "world": "ISOLATED",
+      "all_frames": true
+    }
+  ]
+}
